@@ -1,1 +1,1 @@
-common-y = common/src/init.o
+$(MODNAME)-y = common/src/init.o

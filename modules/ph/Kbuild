@@ -1,1 +1,1 @@
-ph-y = ph/meter.o
+$(MODNAME)-y = ph/meter.o

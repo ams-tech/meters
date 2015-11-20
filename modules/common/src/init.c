@@ -7,6 +7,8 @@
 int __init mod_init(void);
 void __exit mod_exit(void);
 
+dev_t dev_id;
+
 module_init(mod_init);
 module_exit(mod_exit);
 
@@ -17,7 +19,7 @@ static meter_dev_t * devices_in_ram[NUM_METERS] = METER_INIT_STR;
 
 int __init mod_init(void)
 {
-	printk(KERN_EMERG "Hello kernel!  Our module has started.\r\n");
+	
 	return 0;
 }
 
