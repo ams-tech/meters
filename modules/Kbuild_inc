@@ -1,0 +1,2 @@
+include $(src)/common/Kbuild
+include $(src)/ph/Kbuild

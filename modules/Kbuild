@@ -3,6 +3,5 @@ EXTRA_CFLAGS := -I$(src)/common/inc -DNUM_METERS=$(METER_NUM) -DMETER_INIT_STR="
 MODNAME = meters
 
 obj-m := $(MODNAME).o
-$(MODNAME)-y := 
 
 include $(src)/Kbuild_inc
