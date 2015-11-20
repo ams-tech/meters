@@ -5,6 +5,7 @@
 #include "meter_dev.h"
 #include "meter_init.h"
 #include "meter_mod.h"
+#include "meter_app.h"
 
 int __init mod_init(void);
 void __exit mod_exit(void);
@@ -16,7 +17,7 @@ module_exit(mod_exit);
 
 /* Passed from the build system */
 METER_EXTERN_STR;
-static meter_dev_t * devices_in_ram[NUM_METERS] = METER_INIT_STR;
+meter_dev_t * devices_in_ram[NUM_METERS] = METER_INIT_STR;
 /* End passed from build system */
 
 int __init mod_init(void)

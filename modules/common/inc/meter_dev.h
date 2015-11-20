@@ -15,4 +15,7 @@ typedef struct meter_dev_X
 	struct cdev cdev;
 }meter_dev_t;
 
+extern dev_t dev_id;
+extern meter_dev_t * devices_in_ram[];
+
 #endif
