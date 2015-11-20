@@ -2,7 +2,11 @@
 #ifndef __METER_MOD_H__
 #define __METER_MOD_H__
 
+#include <linux/module.h>
+
 #define MODULE_NAME	"meter"
 #define DEFAULT_MAJOR_ID	0 /*Dynamic*/
+
+extern dev_t dev_id;
 
 #endif

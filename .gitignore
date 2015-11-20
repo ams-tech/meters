@@ -31,3 +31,7 @@
 # Debug files
 *.dSYM/
 linux
+.*
+*.symvers
+*.order
+*.mod.c
