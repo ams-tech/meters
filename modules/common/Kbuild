@@ -1,0 +1,3 @@
+MODNAME=common
+
+$(MODNAME)-y = $(MODNAME)/src/init.o
