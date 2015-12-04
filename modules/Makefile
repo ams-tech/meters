@@ -2,6 +2,7 @@ METERS ?= ph
 LINUX_SRC ?= undefined
 TARGETS = common $(METERS)
 OBJECTS = $(addsuffix .o,$(TARGETS))
+BUILD_DIR = build
 
 .PHONY: all
 all: module
@@ -17,13 +18,16 @@ targets:
 	done
 	echo $(TARGETS)
 
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
 .PHONY: clean
 clean: module_clean
 	rm -f Kbuild_inc
+	rm -rf $(BUILD_DIR)
 
 .PHONY: module 
-module: targets
+module: targets $(BUILD_DIR)
 	#Set up our init defines before starting the module build
 	EXTERNS=""; INITS="{"; NUMMETERS=0; for meter in $(METERS); do \
 		NUMMETERS=`echo $$NUMMETERS + 1 | bc`; \
@@ -31,6 +35,7 @@ module: targets
 		INITS="$$INITS &$${meter}_meter_dev," ; \
 	done ; INITS="$$INITS }" ; echo "$$EXTERNS"; echo "$$INITS"; echo $$NUMMETERS; \
 	$(MAKE) METER_INITS="$$INITS" METER_EXTERNS="$$EXTERNS" METER_NUM=$$NUMMETERS OBJECTS="$(OBJECTS)" -C $(LINUX_SRC) M=$(CURDIR) modules
+	cp meters.ko $(BUILD_DIR)/.
 
 .PHONY: module_clean
 module_clean: targets

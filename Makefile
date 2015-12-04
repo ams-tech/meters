@@ -18,10 +18,13 @@ linux:
 modules: linux
 	mkdir -p build/modules
 	$(MAKE) LINUX_SRC=$(LINUX_SRC) -C modules
+	cp -r modules/build/* build/modules/.
 
 .PHONY: apps
 apps:
 	$(MAKE) -C apps
+	mkdir -p build/apps
+	cp -r apps/build/* build/apps/.
 
 .PHONY: clean_modules
 clean_modules:
