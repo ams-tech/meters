@@ -10,6 +10,9 @@
 int __init mod_init(void);
 void __exit mod_exit(void);
 
+MODULE_AUTHOR("ams-tech");
+MODULE_LICENSE("GPL v2");
+
 dev_t dev_id = MKDEV(DEFAULT_MAJOR_ID, 0);
 
 module_init(mod_init);
