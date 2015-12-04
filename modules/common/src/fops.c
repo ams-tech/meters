@@ -58,7 +58,9 @@ int fops_open(struct inode *inode, struct file *filp)
 		/* Verify that we have a valid device and set the private data */
 		unsigned int minor = iminor(inode);
 		if(minor < NUM_METERS)
+		{
 			filp->private_data = devices_in_ram[minor];
+		}
 	}
 	
 	if(filp->private_data == NULL)

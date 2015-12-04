@@ -6,6 +6,7 @@
 #include "meter_init.h"
 #include "meter_mod.h"
 #include "meter_app.h"
+#include "meter_fops.h"
 
 int __init mod_init(void);
 void __exit mod_exit(void);
@@ -44,6 +45,7 @@ int __init mod_init(void)
 		/* Device initialization goes here */
 		meter_dev_t * temp = devices_in_ram[i];
 		temp->dev_id = MKDEV(MAJOR(dev_id), i);
+		fops_init(temp);
 	}
 	
 	return 0;
@@ -51,5 +53,14 @@ int __init mod_init(void)
 
 void __exit mod_exit(void)
 {
+	int i;
+
+	unregister_chrdev_region(dev_id, NUM_METERS);	
+
+	for (i=0; i < NUM_METERS; i++)
+	{
+		fops_exit(devices_in_ram[i]);
+	}
+
 	printk(KERN_EMERG "Goodbye kernel!  Our module has exited.\r\n");
 }
