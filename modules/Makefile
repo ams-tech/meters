@@ -35,7 +35,8 @@ module: targets $(BUILD_DIR)
 		INITS="$$INITS &$${meter}_meter_dev," ; \
 	done ; INITS="$$INITS }" ; echo "$$EXTERNS"; echo "$$INITS"; echo $$NUMMETERS; \
 	$(MAKE) METER_INITS="$$INITS" METER_EXTERNS="$$EXTERNS" METER_NUM=$$NUMMETERS OBJECTS="$(OBJECTS)" -C $(LINUX_SRC) M=$(CURDIR) modules
-	cp meters.ko $(BUILD_DIR)/.
+	cp meter.ko $(BUILD_DIR)/.
+	cp scripts/install_meters $(BUILD_DIR)/.
 
 .PHONY: module_clean
 module_clean: targets

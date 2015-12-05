@@ -1,0 +1,32 @@
+#!/bin/bash
+module="meter"
+module_file="meter.ko"
+device="meter"
+
+#Remove old device nodes
+rm -f /dev/${device}?
+
+#Find major ID
+major=$(awk "\$2 == \"$module\" {print \$1}" /proc/devices)
+
+#Uninstall module, if needed
+if [[ -z "${major}" ]]; then
+	echo "Device did not need to be uninstalled"
+else
+	rmmod ${module}
+fi
+
+#install the module
+insmod ${module_file}
+
+#Find major ID
+major=$(awk "\$2 == \"$module\" {print \$1}" /proc/devices)
+
+if [[ -z "${major}" ]]; then
+	echo "Error! Unable to find ${module} module"
+	exit 1
+else
+	echo "Major device ID: ${major}"
+fi
+
+mknod /dev/${device}0 c ${major} 0
