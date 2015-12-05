@@ -1,0 +1,1 @@
+$(MODNAME)-y += chips/src/mcp3301.o

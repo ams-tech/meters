@@ -3,7 +3,11 @@
 
 #include <linux/types.h>
 
+typedef u8 gpio_t;
+
 #define NUM_GPIO 41
+
+_Static_assert(sizeof(gpio_t)*256 > NUM_GPIO, "GPIO_TYPE too small!");
 
 typedef enum gpio_function_X
 {
@@ -17,10 +21,10 @@ typedef enum gpio_function_X
         GPIO_ALT_FUNC_5 = 2,
 }gpio_function_t;
 
-int clear_gpio_pin(u32 gpio_num);
-int set_gpio_pin(u32 gpio_num);
-int get_gpio_pin(u32 gpio_num, bool * value);
-int set_gpio_function(u32 gpio_num, gpio_function_t func);
+int clear_gpio_pin(gpio_t gpio_num);
+int set_gpio_pin(gpio_t gpio_num);
+int get_gpio_pin(gpio_t gpio_num, bool * value);
+int set_gpio_function(gpio_t gpio_num, gpio_function_t func);
 
 
 

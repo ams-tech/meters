@@ -57,7 +57,7 @@ this can be our common phy driver.
 
 static DEFINE_MUTEX(gpio_lock);
 
-int set_gpio_function(u32 gpio_num, gpio_function_t func)
+int set_gpio_function(gpio_t gpio_num, gpio_function_t func)
 {
 	void * remap;
 	u32 temp, addr;
@@ -90,7 +90,7 @@ int set_gpio_function(u32 gpio_num, gpio_function_t func)
 	return 0;
 }
 
-int get_gpio_pin(u32 gpio_num, bool * value)
+int get_gpio_pin(gpio_t gpio_num, bool * value)
 {
 	void * remap;
         u8 offset;
@@ -118,7 +118,7 @@ int get_gpio_pin(u32 gpio_num, bool * value)
 
 }
 
-int set_gpio_pin(u32 gpio_num)
+int set_gpio_pin(gpio_t gpio_num)
 {
 	void * remap;
 	u8 offset;
@@ -143,7 +143,7 @@ int set_gpio_pin(u32 gpio_num)
 	return 0;
 }
 
-int clear_gpio_pin(u32 gpio_num)
+int clear_gpio_pin(gpio_t gpio_num)
 {
 	void * remap;
         u8 offset;

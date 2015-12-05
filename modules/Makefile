@@ -1,6 +1,6 @@
 METERS ?= ph
 LINUX_SRC ?= undefined
-TARGETS = common $(METERS)
+TARGETS = common chips $(METERS)
 OBJECTS = $(addsuffix .o,$(TARGETS))
 BUILD_DIR = build
 
