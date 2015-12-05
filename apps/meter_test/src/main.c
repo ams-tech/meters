@@ -3,6 +3,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <linux/errno.h>
+#include "meter_test.h"
 
 int main(void)
 {
@@ -23,12 +24,16 @@ int main(void)
 
 	retval = ioctl(fd, IOCTL_GET_MAGIC_NUMBER, &magic);
 
-	if(retval != 0)
+	if(retval == 0)
 	{
 		if(magic != METER_MAGIC_NUMBER)
 		{
 			printf("ERROR! Magic number did not match\r\n");
 			retval -ENOTTY;
+		}
+		else
+		{
+			PRINT_DEBUG(("Successfully read magic number\r\n"));			
 		}
 	}
 	else

@@ -38,7 +38,18 @@ long fops_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 	if(retval)
 		return -EFAULT;
 
-	//TODO: handle the FOPS commands
+	switch(cmd)
+	{
+		case IOCTL_GET_MAGIC_NUMBER:
+		{
+			retval = __put_user(METER_MAGIC_NUMBER, 
+						(char __user *)arg);
+		}
+		break;
+
+		default:
+			retval = -ENOTTY;
+	}
 
 	return 0;
 }
