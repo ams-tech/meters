@@ -37,6 +37,10 @@ this can be our common phy driver.
 
 #define PINS_PER_FSEL	10
 
+/* If you have an RPI_1, uncomment the next line */
+//#define RPI_1
+
+
 #ifdef RPI_1
 	#define VIRTUAL_ADDR_HEADER	0xF2000000
 #else
