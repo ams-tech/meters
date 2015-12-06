@@ -65,7 +65,7 @@ exit:
 
 static int ph_meter_init(meter_dev_t * dev)
 {
-	return mcp3301_init(chip_phy);
+	return mcp3301_init(&chip_phy);
 }
 
 static void ph_meter_exit(meter_dev_t * dev)
