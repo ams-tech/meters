@@ -9,6 +9,7 @@ int main(void)
 {
 	int retval, fd;
 	char magic;
+	meter_data_t data;
 
 	retval = open("/dev/meter0", O_RDONLY);
 	
@@ -29,11 +30,21 @@ int main(void)
 		if(magic != METER_MAGIC_NUMBER)
 		{
 			printf("ERROR! Magic number did not match\r\n");
-			retval -ENOTTY;
+			retval = -ENOTTY;
 		}
 		else
 		{
-			PRINT_DEBUG(("Successfully read magic number\r\n"));			
+			PRINT_DEBUG(("Successfully read magic number\r\n"));
+			retval = read(fd, &data, sizeof(data));
+			if(sizeof(data) != retval)
+			{
+				printf("Read returned error code %d\r\n", retval);
+			}
+			else
+			{
+				printf("Read %d from meter\r\n");
+				retval = 0;
+			}
 		}
 	}
 	else

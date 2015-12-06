@@ -26,6 +26,9 @@
 #include <linux/types.h>
 #include <asm/io.h>
 #include "gpio.h"
+#include <linux/kernel.h>
+
+#define PRINT_LEVEL KERN_EMERG
 
 /****************************************
 

@@ -5,6 +5,8 @@
 #include <linux/delay.h>
 #include "gpio.h"
 
+#define PRINT_LEVEL	KERN_EMERG
+
 #define TIME_TOLERANCE	1.05
 
 /* Chip select disable time, in ns */
@@ -73,6 +75,7 @@ int mcp3301_read(mcp3301_t * chip, int * result)
 
 	if(read_bit(chip))
 	{
+		printk(PRINT_LEVEL "ERROR!  The null bit returned 1");
 		error = -EFAULT;
 		goto exit;
 	}

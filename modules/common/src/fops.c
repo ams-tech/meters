@@ -7,6 +7,8 @@
 #include "meter_fops.h"
 #include "meter_app.h"
 
+#define PRINT_LEVEL	KERN_EMERG
+
 int fops_open(struct inode *, struct file *);
 int fops_release(struct inode *, struct file *);
 ssize_t fops_read(struct file *, char __user *, size_t count, loff_t *f_pos);
@@ -83,13 +85,26 @@ int fops_open(struct inode *inode, struct file *filp)
 ssize_t fops_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
 {
 	meter_dev_t * dev = filp->private_data;
+	meter_data_t data;
+	int error;
+
+	printk(PRINT_LEVEL "Entering fops read");
 
 	if(dev == NULL)
 		return -ENODEV;
 
-	//TODO: Read from the meter
 
-	return 0;
+	//Read from the meter
+	error = dev->phy_interface->read(dev, 10, &data);
+	if(error)
+	{
+		printk(PRINT_LEVEL "meter returned error %d", error);
+		return error;
+	}
+	if(copy_to_user(buf, &data, sizeof(meter_data_t)))
+		return -EFAULT;
+
+	return sizeof(meter_data_t);
 }
 
 int fops_init(meter_dev_t * dev)
