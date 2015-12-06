@@ -19,9 +19,8 @@
 typedef struct meter_data_X
 {
 	u8 sig_bits;
-	u32 payload;
+	int payload;
 	bool is_signed;
-	bool is_big_endian;
 }meter_data_t;
 
 /*

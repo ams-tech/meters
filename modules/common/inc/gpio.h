@@ -26,6 +26,19 @@ int set_gpio_pin(gpio_t gpio_num);
 int get_gpio_pin(gpio_t gpio_num, bool * value);
 int set_gpio_function(gpio_t gpio_num, gpio_function_t func);
 
+#define GOTO_ON_ERROR(x, err, gt) \
+        err = x; \
+        if(err) \
+                goto gt
 
+#define SET_GPIO_PIN(pin) \
+        GOTO_ON_ERROR( \
+                set_gpio_pin(pin), \
+                error, exit)
+
+#define CLEAR_GPIO_PIN(pin) \
+        GOTO_ON_ERROR( \
+                clear_gpio_pin(pin), \
+                error, exit)
 
 #endif

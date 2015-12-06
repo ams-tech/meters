@@ -16,20 +16,6 @@
 /* Clock low time */
 #define T_LO_NS		(275 * TIME_TOLERANCE)
 
-#define GOTO_ON_ERROR(x, err, gt) \
-	err = x; \
-	if(err) \
-		goto gt
-
-#define SET_GPIO_PIN(pin) \
-	GOTO_ON_ERROR( \
-		set_gpio_pin(pin), \
-		error, exit)
-
-#define CLEAR_GPIO_PIN(pin) \
-	GOTO_ON_ERROR( \
-		clear_gpio_pin(pin), \
-		error, exit)
 
 static inline bool read_bit(mcp3301_t * chip)
 {
@@ -44,7 +30,7 @@ static inline bool read_bit(mcp3301_t * chip)
 	return retval;
 }
 
-int mcp3301_read(mcp3301_t * chip, u16 * result)
+int mcp3301_read(mcp3301_t * chip, int * result)
 {
 	u16 retval = 0;
 	int x, error = 0;
@@ -99,6 +85,19 @@ int mcp3301_read(mcp3301_t * chip, u16 * result)
 
 		if(read_bit(chip))
 			retval |= 1 << (x);
+	}
+
+	if(retval & (1 << (RESULT_BITS - 1)))
+	{
+		/* negative */
+		/* invert 13 bits */
+		retval ^= 0x1FFF;
+		/* twos complement conversion */
+		*result = -1 - retval;
+	}
+	else
+	{
+		*result = retval;
 	}
 
 	printk(KERN_DEBUG "Read complete, setting chip select\n");

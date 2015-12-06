@@ -5,14 +5,15 @@
 #include "meter_app.h"
 #include <linux/module.h>
 #include <linux/cdev.h>
+#include <linux/mutex.h>
 
 #define DEVICE_NAME_MAX_LEN	40
 
 struct meter_dev_X;
 
-typedef int (*meter_read_f)(struct meter_dev_X dev, unsigned int samples, meter_data_t * result); 
-typedef int (*meter_init_f)(struct meter_dev_X dev);
-typedef void (*meter_exit_f)(struct meter_dev_X dev);
+typedef int (*meter_read_f)(struct meter_dev_X * dev, unsigned int samples, meter_data_t * result); 
+typedef int (*meter_init_f)(struct meter_dev_X * dev);
+typedef void (*meter_exit_f)(struct meter_dev_X * dev);
 
 typedef struct meter_interface_X
 {
@@ -23,10 +24,11 @@ typedef struct meter_interface_X
 
 typedef struct meter_dev_X
 {
+	struct mutex lock;
 	char name[DEVICE_NAME_MAX_LEN];
 	dev_t dev_id; /* Our device ID and location in devices_in_ram array */
 	struct cdev cdev;
-	meter_interface_t phy_interface;
+	meter_interface_t * phy_interface;
 }meter_dev_t;
 
 extern dev_t dev_id;

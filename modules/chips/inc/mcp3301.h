@@ -19,7 +19,8 @@ typedef struct mcp3301_X
 	} gpio;
 }mcp3301_t;
 
-int mcp3301_read(mcp3301_t * chip, u16 * result);
+/* returns a signed 13 bit result extended to an int */
+int mcp3301_read(mcp3301_t * chip, int * result);
 int mcp3301_init(mcp3301_t * chip);
 
 #endif
