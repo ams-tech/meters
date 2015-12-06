@@ -2,11 +2,14 @@
 #include <linux/module.h> /* Module init and exit */
 #include <linux/kernel.h> /* printk */
 #include <linux/fs.h>
+#include <linux/mutex.h>
 #include "meter_dev.h"
 #include "meter_init.h"
 #include "meter_mod.h"
 #include "meter_app.h"
 #include "meter_fops.h"
+
+DEFINE_MUTEX(module_power_lock);
 
 int __init mod_init(void);
 void __exit mod_exit(void);
