@@ -50,6 +50,7 @@ int __init mod_init(void)
 		temp->dev_id = MKDEV(MAJOR(dev_id), i);
 		mutex_init(&(temp->lock));
 		fops_init(temp);
+		temp->phy_interface->init(temp);
 	}
 	
 	return 0;
@@ -66,6 +67,7 @@ void __exit mod_exit(void)
 		meter_dev_t * temp = devices_in_ram[i];
 		mutex_lock(&(temp->lock));
 		fops_exit(temp);
+		temp->phy_interface->exit(temp);
 	}
 
 	printk(KERN_EMERG "Goodbye kernel!  Our module has exited.\r\n");
