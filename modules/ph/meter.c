@@ -45,7 +45,10 @@ static int ph_meter_read(meter_dev_t * dev,
 		 */
 		error = mcp3301_read(&chip_phy, &temp);
 		if(error)
-			goto powerdown;
+		{
+			clear_gpio_pin(PH_POWER_PIN);
+			goto exit;
+		}
 		count += temp;
 	}
 
@@ -55,7 +58,6 @@ static int ph_meter_read(meter_dev_t * dev,
 	result->payload = count;
 	result->is_signed = true;	
 
-powerdown:	
 	CLEAR_GPIO_PIN(PH_POWER_PIN);
 exit:
 	mutex_unlock(&(dev->lock));
