@@ -3,13 +3,26 @@
 
 #ifdef __KERNEL__
 	#include <linux/types.h>
-#else
+#else /*Application*/
 	#include <sys/ioctl.h>
+	#include <stdint.h>
+	#include <stdbool.h>
+
+	typedef uint8_t u8;
+	typedef uint32_t u32;
 #endif
 
 #define MODULE_NAME "meter"
 
 #define METER_MAGIC_NUMBER 'g'
+
+typedef struct meter_data_X
+{
+	u8 sig_bits;
+	u32 payload;
+	bool is_signed;
+	bool is_big_endian;
+}meter_data_t;
 
 /*
  *  * _IOR means that we're creating an ioctl command 
