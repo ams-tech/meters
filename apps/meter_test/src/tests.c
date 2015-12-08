@@ -4,8 +4,10 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <stdio.h>
+#include "device.h"
 
 int test_read_magic_number(char * device, int argc, char *argv[])
 {
+
 	return 0;
 }

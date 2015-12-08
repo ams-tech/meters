@@ -8,7 +8,7 @@ CC = $(CROSS_COMPILE)gcc
 CFLAGS = -I$(INC_DIR)
 
 .PHONY: all
-all:	meter_test
+all:	libmeter
 
 .PHONY: src_files
 src_files:

@@ -17,11 +17,10 @@ int main(int argc, char *argv[])
 	char magic;
 	meter_data_t data;
 
-	retval = open("/dev/meter0", O_RDONLY);
+	retval = device_open("/dev/meter0");
 	
 	if(retval < 0)
 	{
-		printf("Error opening device\r\n");
 		return retval;
 	}
 
