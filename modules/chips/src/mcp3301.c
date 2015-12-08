@@ -7,7 +7,7 @@
 
 #define PRINT_LEVEL	KERN_EMERG
 
-#define TIME_TOLERANCE	1.05
+#define TIME_TOLERANCE	2
 
 /* Chip select disable time, in ns */
 #define T_CSH_NS	(580 * TIME_TOLERANCE)
@@ -73,12 +73,7 @@ int mcp3301_read(mcp3301_t * chip, int * result)
 
 	printk(KERN_DEBUG "Reading null bit\n");
 
-	if(read_bit(chip))
-	{
-		printk(PRINT_LEVEL "ERROR!  The null bit returned 1");
-		error = -EFAULT;
-		goto exit;
-	}
+	read_bit(chip);
 
 	printk(KERN_DEBUG "Reading %d result bits\n", RESULT_BITS);
 
@@ -89,6 +84,8 @@ int mcp3301_read(mcp3301_t * chip, int * result)
 		if(read_bit(chip))
 			retval |= 1 << (x);
 	}
+
+	printk(KERN_EMERG "raw result vale %d", retval);
 
 	if(retval & (1 << (RESULT_BITS - 1)))
 	{

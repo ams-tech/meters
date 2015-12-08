@@ -42,7 +42,8 @@ int main(void)
 			}
 			else
 			{
-				printf("Read %d from meter\r\n");
+				printf("Read %d from meter\r\n", data.payload);
+				printf("Sigbigs: %d \r\n", data.sig_bits);
 				retval = 0;
 			}
 		}
