@@ -5,7 +5,13 @@
 #include <linux/errno.h>
 #include "meter_test.h"
 
-int main(void)
+meter_test_t tests[] = 
+{
+	{"read_magic", test_read_magic_number},
+	
+};
+
+int main(int argc, char *argv[])
 {
 	int retval, fd;
 	char magic;

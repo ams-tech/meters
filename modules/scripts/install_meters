@@ -1,7 +1,9 @@
 #!/bin/bash
 module="meter"
-module_file="meter.ko"
 device="meter"
+SCRIPT=$(readline -f "$0")
+SCRIPTPATH=$(dirname "${SCRIPT}")
+module_file = ${SCRIPTPATH}/meters.ko
 
 #Remove old device nodes
 rm -f /dev/${device}?
